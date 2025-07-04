@@ -1,7 +1,12 @@
 package:
   name: tokenizers
-  version: "0.10.3"
+  version: "0.20.3"
 
 requirements:
   build:
     - setuptools-rust 0.11.6
+
+###########
+
+# export CHAQUOPY_TRIPLET="aarch64-linux-android"
+# export PYO3_CROSS_LIB_DIR="/home/ubuntu/chaquopy/server/pypi/packages/tokenizers/build/0.10.3/cp312-cp312-android_24_arm64_v8a/requirements/chaquopy/lib"

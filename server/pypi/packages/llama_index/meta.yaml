@@ -1,0 +1,20 @@
+{% set version = "0.9.45" %}
+
+package:
+  name: llama_index
+  version: "{{ version }}"
+
+# source:
+#   git_url: https://github.com/run-llama/llama_index
+#   git_rev: v{{ version }}
+
+source:
+  path: /home/ubuntu/chaquopy/workdir/llama_index
+
+
+requirements:
+  host:
+    - python
+
+about:
+  license_file: LICENSE

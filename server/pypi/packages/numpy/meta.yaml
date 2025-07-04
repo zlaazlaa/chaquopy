@@ -7,6 +7,9 @@ build:
   script_env:
     - SETUPTOOLS_USE_DISTUTILS=local
 
+source:
+  path: /home/ubuntu/chaquopy/workdir/numpy
+
 requirements:
   build:
     # NumPy doesn't officially support building with setuptools on Python 3.12, but it

@@ -40,7 +40,7 @@ STANDARD_LIBS = [
     # Android native APIs (https://developer.android.com/ndk/guides/stable_apis)
     (16, ["libandroid.so", "libc.so", "libdl.so", "libEGL.so", "libGLESv1_CM.so",
           "libGLESv2.so", "libjnigraphics.so", "liblog.so", "libm.so",
-          "libOpenMAXAL.so", "libOpenSLES.so", "libz.so"]),
+          "libOpenMAXAL.so", "libOpenSLES.so", "libz.so", "libgcc_s.so.1", "libc.so.6", "ld-linux-x86-64.so.2"]),
     (21, ["libmediandk.so"]),
     (24, ["libcamera2ndk.so", "libvulkan.so"]),
 ]
@@ -145,6 +145,18 @@ class BuildWheel:
             self.apply_patches()
             self.create_host_env()
 
+        if "rust" in self.non_python_build_reqs and self.needs_python:
+            log("Applying symlink workaround for old PyO3 version")
+            fake_sysroot_lib_dir = f"{self.build_dir}/sysroot/usr/lib"
+            ensure_dir(fake_sysroot_lib_dir)
+            
+            real_python_lib = f"{self.host_env}/chaquopy/lib/libpython{self.python}.so"
+            assert_exists(real_python_lib)
+
+            fake_python_lib = f"{fake_sysroot_lib_dir}/libpython{self.python}.so"
+            if not exists(fake_python_lib):
+                run(f"ln -s {real_python_lib} {fake_python_lib}")
+
         # The ProjectBuilder constructor requires at least one of pyproject.toml or
         # setup.py to exist, which may not be the case for packages built using build.sh
         # (e.g. tflite-runtime).
@@ -233,13 +245,25 @@ class BuildWheel:
         def version_key(ver):
             # Use the same "releaselevel" notation as sys.version_info so it sorts in
             # the correct order.
-            groups = list(
-                re.fullmatch(r"(\d+)\.(\d+)\.(\d+)(?:([a-z]+)(\d+))?-(\d+)", ver).groups())
+            match = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)(?:([a-z]+)(\d+))?(?:-(\d+))?", ver)
+            if match is None:
+                raise CommandError(f"Invalid version format: {ver}")
+            groups = list(match.groups())
+            # Convert numeric parts to integers
+            groups[0] = int(groups[0])  # major version
+            groups[1] = int(groups[1])  # minor version
+            groups[2] = int(groups[2])  # patch version
             groups[3] = {
                 "a": "alpha", "b": "beta", "rc": "candidate", None: "final"
             }[groups[3]]
             if groups[4] is None:
                 groups[4] = 0
+            else:
+                groups[4] = int(groups[4])  # release level number
+            if groups[5] is None:  # build number
+                groups[5] = 0
+            else:
+                groups[5] = int(groups[5])  # build number
             return groups
 
         max_ver = max(versions, key=version_key)
