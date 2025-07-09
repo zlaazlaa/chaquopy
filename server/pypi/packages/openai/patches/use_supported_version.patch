@@ -1,0 +1,25 @@
+diff --git a/requirements.lock b/requirements.lock
+index 84cb927..c912605 100644
+--- a/requirements.lock
++++ b/requirements.lock
+@@ -51,7 +51,7 @@ idna==3.4
+     # via anyio
+     # via httpx
+     # via yarl
+-jiter==0.6.1
++jiter==0.8.0
+     # via openai
+ multidict==6.5.0
+     # via aiohttp
+@@ -69,9 +69,9 @@ propcache==0.3.2
+     # via yarl
+ pycparser==2.22
+     # via cffi
+-pydantic==2.10.3
++pydantic<2
+     # via openai
+-pydantic-core==2.27.1
++# pydantic-core==2.27.1
+     # via pydantic
+ python-dateutil==2.9.0.post0
+     # via pandas

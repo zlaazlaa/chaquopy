@@ -1,0 +1,19 @@
+{% set version = "0.1.0" %}
+
+package:
+  name: edge-vec-db
+  version: "{{ version }}"
+
+# source:
+#   git_url: https://github.com/openai/openai-python
+#   git_rev: v{{ version }}
+
+source:
+  path: /home/ubuntu/chaquopy/workdir/LightFaiss
+
+requirements:
+  host:
+    - python
+
+about:
+  license_file: LICENSE

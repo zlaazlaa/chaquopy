@@ -1,0 +1,19 @@
+{% set version = "1.6.10" %}
+
+package:
+  name: yappi
+  version: "{{ version }}"
+
+source:
+  git_url: https://github.com/sumerc/yappi
+  git_rev: {{ version }}
+
+# source:
+#   path: /home/ubuntu/chaquopy/workdir/openai-python
+
+requirements:
+  host:
+    - python
+
+about:
+  license_file: LICENSE
