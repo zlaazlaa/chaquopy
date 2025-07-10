@@ -3,3 +3,5 @@ __pycache__/
 *.jks
 *.pyc
 hs_err*.log
+workdir
+settings.json

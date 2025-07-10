@@ -1,7 +1,7 @@
 {% set version = "0.1.0" %}
 
 package:
-  name: edge-vec-db
+  name: edgevecdb
   version: "{{ version }}"
 
 # source:
@@ -14,6 +14,7 @@ source:
 requirements:
   host:
     - python
+    - chaquopy-libomp 18
 
 about:
   license_file: LICENSE
