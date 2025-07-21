@@ -40,7 +40,8 @@ STANDARD_LIBS = [
     # Android native APIs (https://developer.android.com/ndk/guides/stable_apis)
     (16, ["libandroid.so", "libc.so", "libdl.so", "libEGL.so", "libGLESv1_CM.so",
           "libGLESv2.so", "libjnigraphics.so", "liblog.so", "libm.so",
-          "libOpenMAXAL.so", "libOpenSLES.so", "libz.so", "libgcc_s.so.1", "libc.so.6", "ld-linux-x86-64.so.2"]),
+          "libOpenMAXAL.so", "libOpenSLES.so", "libz.so", "libgcc_s.so.1", "libc.so.6", "ld-linux-x86-64.so.2",
+		  "libcdsprpc.so"]),
     (21, ["libmediandk.so"]),
     (24, ["libcamera2ndk.so", "libvulkan.so"]),
 ]
